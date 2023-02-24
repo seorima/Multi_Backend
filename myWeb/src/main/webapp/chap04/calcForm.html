@@ -1,0 +1,35 @@
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8"/> 
+<title>calcForm.html</title> 
+</head>
+<body>
+
+	<h1>계산기 입력 양식</h1>
+	<hr />
+	
+	<form method="POST" action="/myWeb/CalcServlet"> //서블릿에게전송
+	<fieldset>
+		<legend>간단 계산기</legend>
+		
+		<input type ="number" name="num1" value = "0"/>
+		<select name = "operator">
+			<option>+</option>
+			<option>-</option>
+			<option>*</option>
+			<option>/</option>
+		</select>
+		<input type ="number" name="num2" value = "0"/>
+		
+		<input type ="submit" value = "계산"/>
+		<input type ="reset" value = "초기화"/>
+	</fieldset>
+	</form>
+	
+	<hr />
+</body>
+</html>
