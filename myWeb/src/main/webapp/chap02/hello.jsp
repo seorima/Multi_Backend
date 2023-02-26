@@ -15,7 +15,7 @@
 	<hr />
 	<h3>
 	
-	<%= new Date().toLocaleString() %> 
+	<%= new Date().toLocaleString() %>
 	</h3>
 </body>
 </html>
