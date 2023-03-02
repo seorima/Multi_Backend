@@ -14,7 +14,7 @@
 
 <body>
 
-	<h1>JDBC Test v1</h1>
+	<h1>JDBC Test v2</h1>
 	<hr />
 	
 	<form method="POST">
