@@ -39,7 +39,7 @@ if(request.getMethod().equals("POST")){
 	<h1>JSP 프로그램 구현 유형-1 </h1>
 	<hr />
 	
-	<form method="GET">
+	<form method="POST">
 	<fieldset>
 		<legend>간단 계산기</legend>
 		
