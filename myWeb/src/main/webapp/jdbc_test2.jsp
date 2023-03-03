@@ -1,14 +1,37 @@
 <%@ page contentType="text/html; charset=UTF-8" 
+		 import="chap08.*, java.util.*"
 %>
 
 <%
-//자바 빈즈와 액션을 이용하여 동일한 기능을 구현하는 코드를 작성하세요.
+
+if(request.getMethod().equals("POST")){
+	request.setCharacterEncoding("UTF-8");
+}
+
 %>
 
+<jsp:useBean id = "dao" class = "chap08.JdbcTestDAO" scope = "session" />
+<jsp:useBean id = "testDO" class = "chap08.JdbcTestDO" scope = "page" />
+<jsp:setProperty name = "testDO" property = "*"/>
+
+<%
+
+	if(request.getMethod().equals("POST")){
+		dao.insertJdbcTest(testDO);
+	}
+
+	ArrayList<JdbcTestDO> list = dao.selectAllJdbcTest();
+	String result = "";
+	
+	for(JdbcTestDO tdo : list){
+		result += "<li>" + tdo.getUsername() + "|" + tdo.getEmail() + "</li>";
+	}
+%>
+ 
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+	<meta charset="UTF-8"> 
 	<title>jdbc_test.jsp</title>
 </head>
 
