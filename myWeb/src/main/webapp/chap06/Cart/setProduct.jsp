@@ -2,7 +2,13 @@
 		import = "java.util.*"
 %>
 <%
-	
+/*
+1. 로그인 한 사용자만 이용 할 수 있다.
+2. 로그인 하지 않는 사용자의 접근은 로그인 페이지로 리다이렉팅한다.
+3. 로그아웃 기능 추가
+
+*/
+
 	String script = "";
 	
 	if(request.getMethod().equals("POST")){

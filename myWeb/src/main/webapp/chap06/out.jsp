@@ -20,7 +20,7 @@
 	<h4>3. flush 후 여유 버퍼 용량 : <%= out.getRemaining() %></h4>
 	
 	<%
-		out.clear();
+		out.clearBuffer();
 	%>
 	
 	<h4>4. clear 후 여유 버퍼 용량 : <%= out.getRemaining() %></h4>
