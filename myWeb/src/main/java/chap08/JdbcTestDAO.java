@@ -31,7 +31,7 @@ public class JdbcTestDAO {
 	}
 
 	
-	public int insertJdbcTest(JdbcTestDO testDO) {
+	public int insertJdbcTest(JdbcTestDO testDO) { //jdbcdo 객체가 하나의 행정보를 의미하는데 그거를 이용ㅇ해서 db에있는 행정보를..나타내기위해?
 		
 		int rowCount = 0;
 		
@@ -60,7 +60,7 @@ public class JdbcTestDAO {
 	}
 
 	
-	public ArrayList<JdbcTestDO> selectAllJdbcTest(){
+	public ArrayList<JdbcTestDO> selectAllJdbcTest(){ //jdbctest테이블에있는 모든정보를 다 읽어온다
 		
 		ArrayList<JdbcTestDO> list = new ArrayList<JdbcTestDO>();
 		JdbcTestDO testDO = null;

@@ -10,9 +10,9 @@ if(request.getMethod().equals("POST")){
 
 %>
 
-<jsp:useBean id = "dao" class = "chap08.JdbcTestDAO" scope = "session" />
-<jsp:useBean id = "testDO" class = "chap08.JdbcTestDO" scope = "page" />
-<jsp:setProperty name = "testDO" property = "*"/>
+<jsp:useBean id = "dao" class = "chap08.JdbcTestDAO" scope = "session" /> <!-- 세션이 유지되는동안 정보 유지 -->
+<jsp:useBean id = "testDO" class = "chap08.JdbcTestDO" scope = "page" /> <!-- 각각의 요청마다 새로운걸 만들어야하니까~ -->
+<jsp:setProperty name = "testDO" property = "*"/> <!-- 폼으로부터 들어오는 정보 모두 한번에 저장 -->
 
 <%
 
@@ -55,7 +55,7 @@ if(request.getMethod().equals("POST")){
 	
 	<h3>등록 목록</h3>
 	<ol>
-	
+		<%= result %>
 	</ol>
 
 </body>

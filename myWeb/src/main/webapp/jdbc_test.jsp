@@ -47,7 +47,7 @@
 		}
 		//
 		
-		sql = "select * from jdbc_test";
+		sql = "select * from jdbc_test"; //jdbctest에 있는 모든 행정보를 읽어서 반환하는 기능
 		
 		try{
 			stmt = conn.createStatement();
