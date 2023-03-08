@@ -10,7 +10,7 @@
 %>
 
 <jsp:useBean id = "twitterDAO" class = "mvc.twitter.TwitterDAO" scope = "session"/>
-<jsp:useBean id = "twitterDO" class = "mvc.twitter.TwitterDO" />
+<jsp:useBean id = "twitterDO" class = "mvc.twitter.TwitterDO" scope="page" />
 <jsp:setProperty name ="twitterDO" property="message"/>
 
 <%
@@ -31,11 +31,18 @@
 		response.sendRedirect("twitterLogin.jsp");
 	}else{
 		
+		if(command != null && command.equals("twitterInsert")){
+			twitterDO.setId((String)session.getAttribute("id"));
+			twitterDAO.insertTwitter(twitterDO);
+			
+		}
+		
 		String result = " "; //로그인하고 사용자들이 쓴 트윗들 ㅇㅇ 보는거 getallTwitter함수
 		ArrayList<TwitterDO> list = twitterDAO.getAllTwitter();
 		
 		for(TwitterDO tDO : list){
 			result +="<li>" + tDO.getId() +  " ::: " + tDO.getMessage() + " ::: " + tDO.getCreateDate() + "</li>";
+		
 	}
 
 

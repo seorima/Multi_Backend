@@ -71,7 +71,7 @@ public class TwitterDAO {
 		sql = "select twitter.id || '@' || name as id_name, message, " +
 					"to_char(create_date, 'YYYY/MM/DD HH24:MI:SS') as cdatetime " +
 					"from twitter inner join twitter_login " +
-					"on twitter.id = twitter_login.id";
+					"on twitter.id = twitter_login.id order by no";
 		
 		try {
 			stmt = conn.createStatement();
