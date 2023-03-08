@@ -1,10 +1,6 @@
 package mvc.twitter;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class TwitterDAO {
@@ -16,7 +12,6 @@ public class TwitterDAO {
 	private String sql = null;
 	
 	public TwitterDAO() {
-		
 		String jdbc_driver = "oracle.jdbc.driver.OracleDriver";
 		String jdbc_url = "jdbc:oracle:thin:@localhost:1521:XE";
 		String user = "scott";
@@ -24,49 +19,59 @@ public class TwitterDAO {
 		
 		try {
 			Class.forName(jdbc_driver);
-			conn = DriverManager.getConnection(jdbc_url,user,pwd);
+			conn = DriverManager.getConnection(jdbc_url, user, pwd);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
-	
-	public TwitterLoginDO getLoginDO(TwitterLoginDO loginDO) { //boolean을 반환하는것이 아니라 로그인실패하면 result = null, 성공하면 null이아닌 어떠한 값.
+ 	
+	public TwitterLoginDO checkLogin(TwitterLoginDO loginDO) {
 		TwitterLoginDO result = null;
-		sql = "select * from twitter_login where id = ? and passwd = ?";
+		this.sql = "select * from twitter_login where id = ? and passwd= ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, loginDO.getId()); // 위에 물음표에 id값이 들어갑니다. 
-			pstmt.setString(2, loginDO.getPasswd());
-			rs = pstmt.executeQuery();
+			pstmt.setString(1,loginDO.getId()); //loginDo에 있는걸 필요할때 빼서 쓰는..
+			pstmt.setString(2,loginDO.getPasswd()); //loginDo에 있는걸 필요할때 빼서 쓰는..
+			rs = pstmt.executeQuery(); // 결과를 받아오는 문장
 			
-			if(rs.next()) {
-				loginDO = new TwitterLoginDO();
+			if(rs.next()) { // 로그인이 성공했을때. 즉 rs가 받아오는 값이 있을때
+				result = new TwitterLoginDO();
 				result.setId(rs.getString("id"));
 				result.setPasswd(rs.getString("passwd"));
-				result.setname(rs.getString("name")); 
-				
+				result.setName(rs.getString("name"));
 			}
 			
 			
+			
+			
 		}catch(Exception e) {
-			 e.printStackTrace();
+			
+			e.printStackTrace();
+			
+		}finally {
+			try {
+				if(!pstmt.isClosed()) {
+					pstmt.close();
+				}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return result;
 	}
 	
-	public ArrayList<TwitterDO> getAllTwitter(){
+
+	public ArrayList<TwitterDO> getAllTwitter() { //로그인하고 들어갔을때 다양한 사용자들의 트윗을 보기위해 
 		ArrayList<TwitterDO> list = new ArrayList<TwitterDO>();
 		TwitterDO twitterDO = null;
-		
-		sql = "select twitter.id || '@' || name as id_name, message," ;
-		sql +="to_char(create_date, 'YYYY/MM/DD HH24:MI:SS') as cdatetime";
-		sql +="from twitter inner join twitter_login";
-		sql +="	on twitter.id = twitter_login.id ";
+		sql = "select twitter.id || '@' || name as id_name, message, " +
+					"to_char(create_date, 'YYYY/MM/DD HH24:MI:SS') as cdatetime " +
+					"from twitter inner join twitter_login " +
+					"on twitter.id = twitter_login.id";
 		
 		try {
 			stmt = conn.createStatement();
@@ -74,75 +79,64 @@ public class TwitterDAO {
 			
 			while(rs.next()) {
 				twitterDO = new TwitterDO();
-				twitterDO.setId(rs.getString("id_name"));
+				twitterDO.setId(rs.getString("id_name")); //쿼리로부터 받아오는 값들...id... 각각의 행마다 새로운 twitterdo객체를 만들고 .. 컬럼지정
 				twitterDO.setMessage(rs.getString("message"));
-				twitterDO.setDate(rs.getString("cdatetime"));
+				twitterDO.setCreateDate(rs.getString("cdatetime"));
 				list.add(twitterDO);
-				
 			}
-		}catch(Exception e) {
-		      e.printStackTrace();
-		   }
-		
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		finally {
 			try {
-			      if(stmt.isClosed()) {
-			    	 stmt.close();
-			      }
-			   }
-			   catch (Exception e) {
-			      e.printStackTrace();
-			   }
+				if(!stmt.isClosed()) {
+					stmt.close();
+				}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return list;
-				
 	}
 
 	public int insertTwitter(TwitterDO twitterDO) {
 		int rowCount = 0;
-		
-		sql = "insert into twitter(no, id, message) values (twitter_seq.nextval,?)";
+		sql = "insert into twitter (no, id, message) values (twitter_seq.nextval, ?, ?)";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, twitterDO.getId()); // 위에 물음표에 id값이 들어갑니다. 
+			pstmt.setString(1, twitterDO.getId());
 			pstmt.setString(2, twitterDO.getMessage());
 			rowCount = pstmt.executeUpdate();
-			
-			
-		}catch(Exception e) {
-		      e.printStackTrace();
-		   }
-		
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		finally {
 			try {
-			      if(!pstmt.isClosed()) {
-			    	  pstmt.close();
-			      }
-			   }
-			   catch (Exception e) {
-			      e.printStackTrace();
-			   }
+				if(!pstmt.isClosed()) {
+					pstmt.close();
+				}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
-		
 		return rowCount;
-		
 	}
 	
-	public void closeConnection() {
-		
-		 try {
-		      if(!conn.isClosed()) {
-		         conn.close();
-		      }
-		   }
-		   catch (Exception e) {
-		      e.printStackTrace();
-		   }
-		 
+ 	public void closeConnection() {
+		try {
+			if(!conn.isClosed()) {
+				conn.close();
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
-	
 }

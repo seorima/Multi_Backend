@@ -26,11 +26,11 @@ public class TwitterLoginDO {
 		this.passwd = passwd;
 	}
 
-	public String getname() {
+	public String getName() {
 		return name;
 	}
 
-	public void setname(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 

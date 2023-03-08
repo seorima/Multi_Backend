@@ -2,23 +2,15 @@ package mvc.twitter;
 
 public class TwitterDO {
 
-	int no;
-	String id;
-	String message;
-	String date;
+	
+	private String id;
+	private String message;
+	private String createDate;
 	
 	public TwitterDO() {
-		
+		 
 	}
 	
-	public int getNo() {
-		return no;
-	}
-
-	public void setNo(int no) {
-		this.no = no;
-	}
-
 	public String getId() {
 		return id;
 	}
@@ -30,17 +22,17 @@ public class TwitterDO {
 	public String getMessage() {
 		return message;
 	}
-
+ 
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
-	public String getDate() {
-		return date;
+	public String getCreateDate() {
+		return createDate;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
 
 	
