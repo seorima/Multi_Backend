@@ -17,7 +17,7 @@
 	<fieldset>	
 		<legend>로그인</legend>
 		<label for="id">ID</label>
-		<input type="text" name="id" id="id" /> /
+		<input type="text" name="id" id="id" /> 
 		<label for="passwd">Passwd</label>
 		<input type="password" name="passwd" id="passwd" />
 		<input type="submit" value="login" />

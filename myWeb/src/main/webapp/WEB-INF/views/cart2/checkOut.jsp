@@ -1,4 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" 
+		 import = "java.util.*"
+%>
 <%
 
 /*
@@ -8,6 +10,21 @@
 	상품 구매 페이지 이동
 	
 */
+	@SuppressWarnings("unchecked")
+	ArrayList<String> productList = (ArrayList<String>)session.getAttribute("productList");
+	String result = "<ol>";
+	
+	if(productList.isEmpty()){
+		result = "<h5>선택하신 상품이 없습니다.</h5>";
+	}else{
+		
+		for(String product : productList){
+			result +="<li>" + product + "</li>";
+		}
+		result += "</ol>";
+	}
+	
+	
 
 %>
 
@@ -23,13 +40,16 @@
 	<h1>장바구니 확인</h1>
 	<hr/>
 	
+		<%= result %>
+	
+	
 	<form method="POST">
 		<input type="hidden" name="command" value="clearCart"/>
 		<input type="submit" value="장바구니 비우기"/>
 	</form>
 	
 	<hr />
-	<h5><a href="?"> 상품 구매</a></h5>
+	<h5><a href="controller.jsp"> 상품 구매</a></h5>
 
 </body>
 </html>

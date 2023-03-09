@@ -9,24 +9,21 @@ public class CartBean {
 	ArrayList<String> productList;
 	
 	public CartBean() {
-		productList = new ArrayList<String>(); //cartbean객체 만들어질때 productlist도 만들어집니다.
-		
+		productList = new ArrayList<String>();
 	}
 	
 	public boolean checkLogin(String id, String passwd) {
 		boolean result = false;
-		//로그인 성공 여부 검사
 		
-		if(id != null && id.equals(this.ID) && passwd != null && passwd.equals(this.PASSWD) ) {
+		if(id != null && id.equals(this.ID) && passwd != null && passwd.equals(this.PASSWD)) {
 			result = true;
 		}
+		
 		return result;
 	}
 	
 	public ArrayList<String> getProductList() {
-		
 		return this.productList;
-		
 	}
 	
 	public void addProduct(String product) {
@@ -36,5 +33,13 @@ public class CartBean {
 	public void clearProductList() {
 		this.productList.clear();
 	}
-	
 }
+
+
+
+
+
+
+
+
+

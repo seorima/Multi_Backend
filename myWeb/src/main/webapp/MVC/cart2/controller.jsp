@@ -42,6 +42,20 @@
 		pageContext.forward(viewPath + "setProduct.jsp"); //
 	}
 	
+	else if(command != null && command.equals("checkOut")){
+		if(session.getAttribute("productList") == null){
+			session.setAttribute("productList", bean.getProductList());
+		}
+		
+		pageContext.forward(viewPath + "checkOut.jsp");
+	}
+	
+	else if(command != null && command.equals("clearCart")){
+		bean.clearProductList();
+		pageContext.forward(viewPath + "setProduct.jsp");
+	}
+	
+	
 	else {
 		pageContext.forward(viewPath + "setProduct.jsp");
 	}
