@@ -1,9 +1,10 @@
+<%@page import="javax.naming.InitialContext"%>
 <%@ page contentType="text/html; charset=UTF-8" 
 		 import="java.sql.*,java.sql.*,javax.sql.*"
 %>
 
 <%
-
+	DataSource ds = null;
 	Connection conn = null;
 	Statement stmt = null;
 	PreparedStatement pstmt = null;
@@ -12,8 +13,8 @@
 	String list = "";
 	
 	try {
-		Class.forName(jdbc_driver);
-		conn = DriverManager.getConnection(jdbc_url, user, pwd);
+		InitialContext context = new InitialContext();
+		ds = (DataSource)context.lookup("java:comp:env/jdbc/oracleXE");
 	}
 	catch(Exception e) {
 		e.printStackTrace();
@@ -25,6 +26,7 @@
 		sql = "insert into jdbc_test values(?, ?)";
 		
 		try {
+			conn= ds.getConnection(); //커넥션풀로부터 빌려오는것.
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, request.getParameter("username"));
 			pstmt.setString(2, request.getParameter("email"));
@@ -38,6 +40,10 @@
 				if(!pstmt.isClosed()) {
 					pstmt.close();
 				}
+				 
+				if(!conn.isClosed()) {
+					conn.close();
+				}
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -48,6 +54,7 @@
 	sql = "select * from jdbc_test";
 	
 	try {
+		conn=ds.getConnection();
 		stmt = conn.createStatement();
 		rs = stmt.executeQuery(sql);
 		
@@ -63,20 +70,17 @@
 			if(!stmt.isClosed()) {
 				stmt.close();
 			}
+			
+			if(!conn.isClosed()) {
+				conn.close();
+			}
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	try {
-		if(!conn.isClosed()) {
-			conn.close();
-		}
-	}
-	catch(Exception e) {
-		e.printStackTrace();
-	}
+	
 %>
 
 <!DOCTYPE html>
