@@ -6,14 +6,14 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import chap03.model.*;
 import chap03.exception.*;
-import chap03.config.AppContext;
+import chap03.config.*;
 
-public class MainForSpring {
+public class MainForSpring2 {
 
 	private static AnnotationConfigApplicationContext context;
 	
 	static {
-		context = new AnnotationConfigApplicationContext(AppContext.class);
+		context = new AnnotationConfigApplicationContext(AppConf1.class,AppConf2.class); //설정클래스를 하나가아니라 여러개지정
 	}
 	
 	private void printHelp() {
@@ -102,7 +102,7 @@ public class MainForSpring {
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		MainForSpring main = new MainForSpring();
+		MainForSpring2 main = new MainForSpring2();
 		String command = "";
 		
 		System.out.println("\n ### 회원 관리 프로그램 ###\n");

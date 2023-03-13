@@ -1,12 +1,10 @@
-package chap03.main;
+package chap04_2.main;
 
 import java.io.*;
-
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import chap03.model.*;
-import chap03.exception.*;
-import chap03.config.AppContext;
+import chap04.model.*;
+import chap04.exception.*;
+import chap04.config.AppContext;
 
 public class MainForSpring {
 
@@ -14,10 +12,10 @@ public class MainForSpring {
 	
 	static {
 		context = new AnnotationConfigApplicationContext(AppContext.class);
-	}
+	}			
 	
 	private void printHelp() {
-		System.out.println("\n 잘못된 명령입니다. 아래 사용법을 확인하세요");
+		System.out.println("\n 잘못된 명령입니다. 아래 사용법을 확인하세요.");
 		System.out.println("\n ### 명령어 사용법 ###");
 		System.out.println(" 명령어를 입력하세요: new 이메일 이름 암호 암호확인");
 		System.out.println(" 명령어를 입력하세요: change 이메일 현재암호 변경암호");
@@ -35,6 +33,7 @@ public class MainForSpring {
 		
 		MemberRegisterService regSvc = context.getBean("memberRegSvc", MemberRegisterService.class);
 		RegisterRequest req = new RegisterRequest();
+		
 		req.setEmail(args[1]);
 		req.setName(args[2]);
 		req.setPassword(args[3]);
@@ -51,7 +50,7 @@ public class MainForSpring {
 		}
 		catch(DuplicateMemberException e) {
 			System.out.println(" 이미 존재하는 이메일입니다.\n");
-		}
+		}		
 	}
 	
 	private void processChangeCommand(String [] args) {
@@ -66,16 +65,16 @@ public class MainForSpring {
 			pwdSvc.changePassword(args[1], args[2], args[3]);
 			System.out.println(" 비밀번호를 잘 변경했습니다!\n");
 		}
-		catch (MemberNotFoundException e) {
+		catch(MemberNotFoundException e) {
 			System.out.println(" 존재하지 않는 이메일입니다.\n");
 		}
-		catch (WrongIdPasswordException e) {
+		catch(WrongIdPasswordException e) {
 			System.out.println(" 잘못된 아이디 또는 패스워드 입니다.\n");
 		}
 	}
 	
-	private void processListCommand() {
-		MemberListPrinter listPrinter = context.getBean("listPrinter",MemberListPrinter.class);
+	private void processListCommand() {		
+		MemberListPrinter listPrinter = context.getBean("listPrinter", MemberListPrinter.class);
 		listPrinter.printAll();
 	}
 	
@@ -84,23 +83,23 @@ public class MainForSpring {
 			this.printHelp();
 			return;
 		}
-		MemberinfoPrinter infoPrinter = context.getBean("infoPrinter", MemberinfoPrinter.class);
-				
+		
+		MemberInfoPrinter infoPrinter = context.getBean("infoPrinter", MemberInfoPrinter.class);
+		
 		try {
-			infoPrinter.printInfo(args[1]);   //오류나면 이거 printinfo맞는지
+			infoPrinter.printMemberInfo(args[1]);
 		}
-		catch(MemberNotFoundException exception ) {
-			System.out.println("존재하지 않는 이메일입니다.");
+		catch(MemberNotFoundException e) {
+			System.out.println(" 존재하지 않는 이메일입니다.\n");
 		}
 	}
 	
-	private void processVersionCommand() {
-		VersionPrinter versionPrinter = context.getBean("versionPrinter",VersionPrinter.class);
+	private void processVersionCommand() {		
+		VersionPrinter versionPrinter = context.getBean("versionPrinter", VersionPrinter.class);
 		versionPrinter.print();
 	}
 	
-	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException{
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		MainForSpring main = new MainForSpring();
 		String command = "";
@@ -127,7 +126,7 @@ public class MainForSpring {
 			else if(command.startsWith("info ")) {
 				main.processInfoCommand(command.split(" "));
 			}
-			else if(command.startsWith("version ")) {
+			else if(command.startsWith("version")) {
 				main.processVersionCommand();
 			}
 			else {
@@ -136,3 +135,25 @@ public class MainForSpring {
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

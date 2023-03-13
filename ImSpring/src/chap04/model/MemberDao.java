@@ -1,4 +1,4 @@
-package chap03.model;
+package chap04.model;
 
 import java.util.Collection;
 import java.util.HashMap;
