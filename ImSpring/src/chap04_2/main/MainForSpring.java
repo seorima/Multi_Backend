@@ -3,6 +3,7 @@ package chap04_2.main;
 import java.io.*;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import chap04.model.*;
+import chap04_2.model.MemberInfoPrinter;
 import chap04.exception.*;
 import chap04.config.AppContext;
 

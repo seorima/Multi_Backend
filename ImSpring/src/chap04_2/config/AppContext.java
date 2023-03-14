@@ -1,9 +1,13 @@
 package chap04_2.config; 
 
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import chap04.model.*;
+import chap04_2.model.MemberInfoPrinter;
+import chap04_2.model.MemberSummaryPrinter;
 
 @Configuration
 public class AppContext {
@@ -91,6 +95,13 @@ public class AppContext {
 		
 		return versionPrinter;
 	}
+	/*
+	@Bean DateTimeFormatter dateTimeFormatter() {
+		return DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+	}*/
+	
+	
+	
 }
 
 

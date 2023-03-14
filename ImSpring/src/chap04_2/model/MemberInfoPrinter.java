@@ -14,7 +14,7 @@ public class MemberInfoPrinter {
 	// => 기본
 	// private MemberPrinter memberPrinter;
 	
-	// => 빈 이름으로 식별
+	// => 빈 이름으로 식별 
 	// private MemberPrinter memberPrinter1;
 	
 	// 한정자를 필드의 이름으로 사용할 수 없다!

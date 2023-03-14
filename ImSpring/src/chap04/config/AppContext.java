@@ -1,5 +1,7 @@
 package chap04.config;
 
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -77,6 +79,10 @@ public class AppContext {
 		versionPrinter.setMinorVersion(0);;
 		
 		return versionPrinter;
+	}
+	
+	@Bean DateTimeFormatter dateTimeFormatter() {
+		return DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
 	}
 
 }
