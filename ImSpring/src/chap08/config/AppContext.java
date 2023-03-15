@@ -16,8 +16,9 @@ public class AppContext {
 		ds.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
 		ds.setUsername("scott");
 		ds.setPassword("tiger");
-		ds.setInitialSize(3);
+		ds.setInitialSize(2);
 		ds.setMinIdle(3);
+		ds.setMaxIdle(3);
 		ds.setMaxActive(5);
 		ds.setMinEvictableIdleTimeMillis(60000);
 		ds.setTimeBetweenEvictionRunsMillis(5000);
@@ -27,8 +28,8 @@ public class AppContext {
 	}
 	
 	@Bean
-	public MemberDao memberDao() {
-		return new MemberDaojdbc();
+	public MemberDaoSpring memberDao() {
+		return new MemberDaoSpring(dataSource());
 	}
 	
 	@Bean //이게 붙어있는 경우에는 작성한 코드 그대로 사용되는게아니라 코드변형이 일너마 . spring framework에 의해서 
