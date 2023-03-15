@@ -47,7 +47,16 @@ public class MemberCount {
 		catch (Exception e) {
 			e.printStackTrace();// TODO: handle exception
 		}
-		
+		finally {
+			try {
+				if(!conn.isClosed()) {
+					conn.close();
+				}
+			}
+			catch (Exception e) {
+				e.printStackTrace();// TODO: handle exception
+			}
+		}
 		
 		
 		return rowCount;
