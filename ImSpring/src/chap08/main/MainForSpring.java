@@ -35,7 +35,9 @@ public class MainForSpring {
 		
 		MemberRegisterService regSvc = context.getBean("memberRegSvc", MemberRegisterService.class);
 		RegisterRequest req = new RegisterRequest();
-		req.setEmail(args[1]);
+		Long id = 0L;
+		
+ 		req.setEmail(args[1]);
 		req.setName(args[2]);
 		req.setPassword(args[3]);
 		req.setConfirmPassword(args[4]);
@@ -47,7 +49,7 @@ public class MainForSpring {
 		
 		try {
 			regSvc.regist(req);
-			System.out.println(" 회원 정보를 등록했습니다.\n");
+			System.out.println(" [ID: "+ id + "] 회 정보를 등록했습니다.\n");
 		}
 		catch(DuplicateMemberException e) {
 			System.out.println(" 이미 존재하는 이메일입니다.\n");

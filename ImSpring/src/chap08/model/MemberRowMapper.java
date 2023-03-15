@@ -3,9 +3,10 @@ package chap08.model;
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.*;
 
-public class MemberRowMapper implements RowMapper {
+public class MemberRowMapper implements RowMapper<Member> {
 	
-	public Member mapRow(ResultSet rs, int rowNum ) throws SQLException{
+	@Override
+	public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Member member = new Member();
 		member.setId(rs.getLong("id"));
 		member.setEmail(rs.getString("email"));
@@ -14,9 +15,5 @@ public class MemberRowMapper implements RowMapper {
 		member.setRegisterDateTime(rs.getTimestamp("regdate").toLocalDateTime());
 		
 		return member;
-		
 	}
-	
-	
-
 }
