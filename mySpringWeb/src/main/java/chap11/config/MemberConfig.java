@@ -1,30 +1,23 @@
 package chap11.config;
 
+import java.time.format.DateTimeFormatter;
+
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import chap08.model.ChangePasswordService;
-import chap08.model.MemberDaoSpring;
-import chap08.model.MemberListPrinter;
-import chap08.model.MemberPrinter;
-import chap08.model.MemberRegisterService;
-import chap08.model.MemberinfoPrinter;
-import chap08.model.VersionPrinter;
-//모델설정
+import chap11.model.*;
+
 @Configuration
-@EnableWebMvc
+@EnableTransactionManagement
 public class MemberConfig {
 
-	
 	@Bean
 	public DataSource dataSource() {
 		DataSource ds = new DataSource();
-		ds = new DataSource();
 		ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
 		ds.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
 		ds.setUsername("scott");
@@ -32,12 +25,19 @@ public class MemberConfig {
 		ds.setInitialSize(2);
 		ds.setMinIdle(3);
 		ds.setMaxIdle(3);
-		ds.setMaxActive(5);
+		ds.setMaxActive(3);
 		ds.setMinEvictableIdleTimeMillis(60000);
 		ds.setTimeBetweenEvictionRunsMillis(5000);
 		
 		return ds;
+	}
+
+	@Bean
+	public PlatformTransactionManager transactionManager() {
+		DataSourceTransactionManager tm = new DataSourceTransactionManager();
+		tm.setDataSource(dataSource());
 		
+		return tm;
 	}
 	
 	@Bean
@@ -45,19 +45,18 @@ public class MemberConfig {
 		return new MemberDaoSpring(dataSource());
 	}
 	
-	@Bean //이게 붙어있는 경우에는 작성한 코드 그대로 사용되는게아니라 코드변형이 일너마 . spring framework에 의해서 
-	public MemberRegisterService memberRegSvc() { //생성자통해서 의존 주입
+	@Bean
+	public MemberRegisterService memberRegSvc() {
 		return new MemberRegisterService(this.memberDao());
 	}
 	
 	@Bean
-	public ChangePasswordService changePwdSvc() { //얘는 setter메소드를 통해서 의존주입을 하는것.
-		ChangePasswordService pwdSvc =  new ChangePasswordService();
+	public ChangePasswordService changePwdSvc() {
+		ChangePasswordService pwdSvc = new ChangePasswordService();
 		pwdSvc.setMemberDao(this.memberDao());
-
-	
-	return pwdSvc;
-			}
+		
+		return pwdSvc;
+	}
 	
 	@Bean
 	public MemberPrinter memberPrinter() {
@@ -66,24 +65,29 @@ public class MemberConfig {
 	
 	@Bean
 	public MemberListPrinter listPrinter() {
-		return new MemberListPrinter(memberDao(),memberPrinter());
+		return new MemberListPrinter(this.memberDao(), this.memberPrinter());
 	}
 	
-	@Bean MemberinfoPrinter infoPrinter() {
-		MemberinfoPrinter infoPritner = new MemberinfoPrinter();
-		//infoPritner.setMemberDao(memberDao());
-		//infoPritner.setMemberPrinter(memberPrinter());
+	@Bean
+	public MemberinfoPrinter infoPrinter() {
+		MemberinfoPrinter infoPrinter = new MemberinfoPrinter();
+//		infoPrinter.setMemberDao(this.memberDao());
+//		infoPrinter.setMemberPrinter(this.memberPrinter());
 		
-		return infoPritner;
+		return infoPrinter;
 	}
 	
-	@Bean VersionPrinter versionPrinter() {
+	@Bean
+	public VersionPrinter versionPrinter() {
 		VersionPrinter versionPrinter = new VersionPrinter();
 		versionPrinter.setMajorVersion(5);
-		versionPrinter.setMinorVersion(0);;
+		versionPrinter.setMinorVersion(0);
 		
 		return versionPrinter;
 	}
-
 	
+	@Bean
+	public DateTimeFormatter dateTimeFormatter() {
+		return DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+	}
 }

@@ -3,7 +3,7 @@ package chap11.config;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import chap08.model.*;
+import chap11.model.*;
 @Configuration
 public class AppContext {
 	

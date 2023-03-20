@@ -7,31 +7,26 @@
   <name>스프링 웹 프로젝트</name>
   
   <dependencies>
-     <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-context</artifactId>
-        <version>5.0.2.RELEASE</version>
-     </dependency>
-     <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-jdbc</artifactId>
-        <version>5.0.2.RELEASE</version>
-     </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-webmvc</artifactId>
-        <version>5.0.2.RELEASE</version>
-     </dependency>
-     <dependency>
-        <groupId>org.apache.tomcat</groupId>
-        <artifactId>tomcat-jdbc</artifactId>
-        <version>8.5.27</version>
-     </dependency>
-     <dependency>
-     	<groupId>backend.7th</groupId>
-     	<artifactId>mySpring</artifactId>
-     	<version>0.0.1-SNAPSHOT</version>
-     </dependency>
+	  <dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-context</artifactId>
+		  <version>5.0.2.RELEASE</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-jdbc</artifactId>
+		  <version>5.0.2.RELEASE</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-webmvc</artifactId>
+		  <version>5.0.2.RELEASE</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.apache.tomcat</groupId>
+		  <artifactId>tomcat-jdbc</artifactId>
+		  <version>8.5.27</version>
+	  </dependency>
   </dependencies>
   
   <build>
