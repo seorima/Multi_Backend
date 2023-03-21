@@ -24,7 +24,20 @@ public class MvcConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		// http://localhost:8080/mySpringWeb/main
-		registry.addViewController("/main").setViewName("main");
+		// http://localhost:8080/mySpringWeb/register/main
+		registry.addViewController("/register/main").setViewName("register/main");
+		
+		// http://localhost:8080/mySpringWeb/register/step1
+		registry.addViewController("/register/step1").setViewName("register/step1");
+		
+		// http://localhost:8080/mySpringWeb/member/login
+		registry.addViewController("/member/login").setViewName("member/login");
+		
+		// http://localhost:8080/mySpringWeb/member/findMember
+		registry.addViewController("/member/findMember").setViewName("member/findMember");
+		
+		// http://localhost:8080/mySpringWeb/member/changePasswd
+		registry.addViewController("/member/changePasswd").setViewName("member/changePasswd");
+		
 	}
 }

@@ -1,33 +1,31 @@
 package chap11.model;
 
-import chap11.exception.MemberNotFoundException;
-import chap11.exception.WrongIdPasswordException;
+import org.springframework.transaction.annotation.Transactional;
+import chap11.exception.*;
 
 public class ChangePasswordService {
 
 	private MemberDao memberDao;
 	
 	public ChangePasswordService() {
-		
 	}
 	
 	public void setMemberDao(MemberDao memberDao) {
 		this.memberDao = memberDao;
 	}
 	
-	public void changePassword(String email, String oldPassword, String newPassword) {
-		Member member = memberDao.selectByEmail(email);
+	@Transactional
+	public void changePassword(ChangePasswdCommand command) {
+		Member member = memberDao.selectByEmail(command.getEmail());
 		if(member == null) {
 			throw new MemberNotFoundException();
 		}
 		
-		if(oldPassword.equals(newPassword)) {
+		if(command.getPassword().equals(command.getNewPassword())) {
 			throw new WrongIdPasswordException();
 		}
 		
-		member.changePassword(oldPassword, newPassword);
+		member.changePassword(command.getPassword(), command.getNewPassword());
 		memberDao.update(member);
-		
 	}
-	
 }

@@ -1,7 +1,5 @@
 package chap11.config;
 
-import java.time.format.DateTimeFormatter;
-
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +12,7 @@ import chap11.model.*;
 @Configuration
 @EnableTransactionManagement
 public class MemberConfig {
-
+	
 	@Bean
 	public DataSource dataSource() {
 		DataSource ds = new DataSource();
@@ -25,13 +23,13 @@ public class MemberConfig {
 		ds.setInitialSize(2);
 		ds.setMinIdle(3);
 		ds.setMaxIdle(3);
-		ds.setMaxActive(3);
+		ds.setMaxActive(5);
 		ds.setMinEvictableIdleTimeMillis(60000);
 		ds.setTimeBetweenEvictionRunsMillis(5000);
 		
 		return ds;
 	}
-
+	
 	@Bean
 	public PlatformTransactionManager transactionManager() {
 		DataSourceTransactionManager tm = new DataSourceTransactionManager();
@@ -48,6 +46,11 @@ public class MemberConfig {
 	@Bean
 	public MemberRegisterService memberRegSvc() {
 		return new MemberRegisterService(this.memberDao());
+	}
+	
+	@Bean
+	public MemberService memberSvc() {
+		return new MemberService(this.memberDao());
 	}
 	
 	@Bean
@@ -71,8 +74,8 @@ public class MemberConfig {
 	@Bean
 	public MemberinfoPrinter infoPrinter() {
 		MemberinfoPrinter infoPrinter = new MemberinfoPrinter();
-//		infoPrinter.setMemberDao(this.memberDao());
-//		infoPrinter.setMemberPrinter(this.memberPrinter());
+		// infoPrinter.setMemberDao(this.memberDao());
+		// infoPrinter.setMemberPrinter(memberPrinter());
 		
 		return infoPrinter;
 	}
@@ -85,9 +88,19 @@ public class MemberConfig {
 		
 		return versionPrinter;
 	}
-	
-	@Bean
-	public DateTimeFormatter dateTimeFormatter() {
-		return DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
-	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
