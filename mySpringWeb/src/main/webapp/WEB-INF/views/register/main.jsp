@@ -13,8 +13,8 @@
 	<hr />
 	
 	<ol>
-		<li><a href="#">로그인</a></li>
 		<li><a href="<c:url value='/main'/>">회원가입</a></li>
+		<li><a href="#">로그인</a></li>
 		<li><a href="#">비밀번호 변경</a></li>
 		<li><a href="#">회원 검색</a></li>
 		<li><a href="#">전체 회원조회</a></li>

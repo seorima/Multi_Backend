@@ -89,9 +89,9 @@ public class RegisterController {
       
       return view;
    }
-   
+   /*
    @GetMapping("/main")
    public String handleMain() {
       return "main";
-   }
+   }*/
 }
