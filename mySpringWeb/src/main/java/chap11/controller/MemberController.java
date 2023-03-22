@@ -1,5 +1,7 @@
 package chap11.controller;
 
+import java.util.Collection;
+
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -65,6 +67,14 @@ public class MemberController {
 		}
 		
 		return view;
+	}
+	
+	@GetMapping("/member/allMember")
+	public String allMember(Model model) {
+		Collection<Member> members = memberService.allMember();
+		model.addAttribute("members",members);
+		
+		return "member/allMember";
 	}
 	
 	@GetMapping("/member/logout")

@@ -18,7 +18,7 @@
 		<li><a href="<c:url value='/member/login'/>">로그인</a></li>
 		<li><a href="<c:url value='/member/changePasswd'/>">비밀번호 변경</a></li>
 		<li><a href="<c:url value='/member/findMember'/>">회원 검색</a></li>
-		<li><a href="#">전체 회원조회</a></li>
+		<li><a href="<c:url value='/member/allMember'/>">전체 회원조회</a></li>
 		<li><a href="<c:url value='/member/findMember'/>">로그아웃</a></li>
 	
 	</ol>
