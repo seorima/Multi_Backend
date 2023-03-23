@@ -1,8 +1,6 @@
 package chap11.survey;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Question {
 
@@ -12,7 +10,7 @@ public class Question {
 	public Question(String title, List<String> options) {
 		this.title = title;
 		this.options = options;
- 	}
+	}
 	
 	public Question(String title) {
 		this(title, Collections.<String>emptyList());
@@ -29,5 +27,4 @@ public class Question {
 	public boolean isChoice() {
 		return this.options != null && !this.options.isEmpty();
 	}
-	
 }
