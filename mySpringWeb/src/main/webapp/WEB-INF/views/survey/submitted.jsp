@@ -12,7 +12,7 @@
 
 	<h2>설문 응답 결과</h2>
 	<hr />
-	
+	<h5></h5>
 	<h5>### 응답 내용 ###</h5>
 	<ul>
 	<c:forEach var ="response" items="${ansData.responses}" varStatus = "status">
