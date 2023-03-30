@@ -14,9 +14,9 @@ public class LinearRegressionDefault {
 		ma.plot2DInstances("outlier recognition", 0, 1); //시각화
 		
 		System.out.println("[모델 평가 결과]");
-		String result = ma.outlierWithCSV();
+		String result = ma.outlierWithCSV(); //성능평가 결과 저장하고..
 		
-		System.out.println(model.toString());
+		System.out.println(model.toString()); //출력하고
 		System.out.println(result);
 		
 	}
