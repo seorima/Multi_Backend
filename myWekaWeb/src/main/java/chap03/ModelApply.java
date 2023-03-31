@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
+
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.core.Attribute;
@@ -30,10 +31,14 @@ public class ModelApply {  //javaBean으로 사용이 되어질수있다.
 	}
 	
 	
-	private void loadCSVData() throws Exception {
+	private void loadCSVData() throws Exception {  //private맞음?
 		CSVLoader loader = new CSVLoader();
 		loader.setSource(new File("C:/projects/Weka-3-9-6/data/" + this.fileName + ".csv"));
 		this.data = loader.getDataSet();
+	}
+	
+	public void setModel(Classifier model) {
+		this.model= model;
 	}
 	
 	
