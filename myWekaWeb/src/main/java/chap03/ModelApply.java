@@ -31,7 +31,7 @@ public class ModelApply {  //javaBean으로 사용이 되어질수있다.
 	}
 	
 	
-	private void loadCSVData() throws Exception {  //private맞음?
+	public void loadCSVData() throws Exception {  //private맞음?
 		CSVLoader loader = new CSVLoader();
 		loader.setSource(new File("C:/projects/Weka-3-9-6/data/" + this.fileName + ".csv"));
 		this.data = loader.getDataSet();
@@ -43,8 +43,7 @@ public class ModelApply {  //javaBean으로 사용이 되어질수있다.
 	
 	
 
-	public String outlierWithCSV () throws Exception  //모델에 대한 학습
-			{
+	public String outlierWithCSV() throws Exception {
 		int numFolds = 10;
 		int numFold = 0;
 		int seed = 1;
@@ -58,54 +57,50 @@ public class ModelApply {  //javaBean으로 사용이 되어질수있다.
 		Evaluation eval = new Evaluation(train);
 
 		this.model.buildClassifier(train);
-		eval.crossValidateModel(model, train, numFolds, new Random(seed));
+		eval.crossValidateModel(this.model, train, numFolds, new Random(seed));
 
-		eval.evaluateModel(model, test);
-
+		eval.evaluateModel(this.model, test);
+		
 		return eval.toSummaryString();
 	}
 
-	public void applyAddClassificationFilter()
-			throws Exception {
-		
-			AddClassification filter = new AddClassification();
-			filter.setClassifier(this.model);
-			filter.setOutputClassification(true);
-			this.data.setClassIndex(data.numAttributes() - 1);
-			filter.setInputFormat(data);
-			this.data = Filter.useFilter(this.data, filter);
-		
+	public void applyAddClassificationFilter() throws Exception {
+		AddClassification filter = new AddClassification();
+		filter.setClassifier(this.model);
+		filter.setOutputClassification(true);
+		this.data.setClassIndex(data.numAttributes() - 1);
+		filter.setInputFormat(data);
+		this.data = Filter.useFilter(this.data, filter);
 	}
 
-	public void eraseOutlier(String [] attributes , int targetIdx, int start, int end) throws Exception {
-		
+	public void eraseOutlier(String [] attributes, int targetIdx, int start, int end) throws Exception {
 		ArrayList<Attribute> attrList = new ArrayList<Attribute>();
 		
-		for(String attribute : attributes) {
-			attrList.add(new Attribute(attribute));
+		for(String attibute : attributes) {
+			attrList.add(new Attribute(attibute));
 		}
-		
 
 		Instances eraseData = new Instances("ErasedData", attrList, 0);
 
-		for (int i = 0; i < this.data.size(); i++) {
-			Instance instance = data.get(i);
-			int year = (int) instance.value(targetIdx);
+		for(int i = 0; i < this.data.size(); i++) {
+			Instance instance = this.data.get(i);
+			int target = (int)instance.value(targetIdx);
 
-			if (year >= start || year <= end) {
+			if(target < start || target > end) {
 				eraseData.add(instance);
 			}
 		}
+
+		this.data = eraseData;
 	}
-	
-	
+
 	public void plot2DInstances(String graphTitle, int xIndex, int yIndex) throws Exception {
 		Plot2D panel = new Plot2D();
 		panel.setInstances(this.data);
 		panel.setXindex(xIndex);
 		panel.setYindex(yIndex);
 		panel.setCindex(this.data.numAttributes() - 1);
-		
+
 		JFrame frame = new JFrame(graphTitle);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout());

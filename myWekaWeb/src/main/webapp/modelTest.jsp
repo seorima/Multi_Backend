@@ -24,9 +24,32 @@
 			modelService.configModel(modelConfig);
 			
 			if(modelConfig.getModelName().equals("LinearRegression")){
-				sesssion.setAttribute("LinearRegression",)
-				
+				session.setAttribute("LinearRegression","checked");
+				session.setAttribute("leaseMedSq","");
 			}
+			else{
+				session.setAttribute("LinearRegression","");
+				session.setAttribute("leaseMedSq","checked");
+			}
+			if(!modelConfig.isApplyFilter()) {
+				session.setAttribute("af_false", "checked");
+				session.setAttribute("af_true", "");
+			}
+			else {
+				session.setAttribute("af_false", "");
+				session.setAttribute("af_true", "checked");
+			}
+			
+			if(!modelConfig.isEraseOutlier()) {
+				session.setAttribute("eo_false", "checked");
+				session.setAttribute("eo_true", "");
+			}
+			else {
+				session.setAttribute("eo_false", "");
+				session.setAttribute("eo_true", "checked");
+			}
+			
+			
 		}
 		
 	}
@@ -52,15 +75,11 @@
 	<style>
 	#modelInfo{
 		width : 600px;
-		height : 150px;
+		height : 400px;
 		border: 2px solid gray;
 	}
 	
-	#modelEvalInfo{
-		width : 600px;
-		height : 300px;
-		border: 2px solid gray;
-	}
+	
 	</style>
 	
 </head>
@@ -111,27 +130,14 @@
 	<hr/>
 	
 	<h3>모델 정보 및 평가 정보 조회</h3>
-
-	<form method="POST">
-		<input type="hidden" name="command" value = "modelInfo" />
-		<input type="submit" value="모델 정보 보기"/>
 	
+	<form method="POST">
+		<input type="hidden" name="command" value="modelInfo" />
+		<input type="submit" value="정보 보기" />
 	</form>
 	
-	<pre id = "modelInfo">
+	<pre id="modelInfo">
 		<%= modelInfo %>
-	</pre>
-	
-	<hr/>
-	
-	<form method="POST">
-		<input type="hidden" name="command" value = "modelInfo" />
-		<input type="submit" value="모델 평가 보기"/>
-	
-	</form>
-	
-	<pre id = "modelEvalInfo">
-		<%= modelEvalInfo %>
 	</pre>
 	
 	
