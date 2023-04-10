@@ -19,6 +19,9 @@ public class ControllerConfig {
 	@Autowired
 	private MemberRegisterService memberRegisterService;
 	
+	
+	//왜 안돼
+	
 	@Bean
 	public RegisterController registerController() {
 		RegisterController rc = new RegisterController();

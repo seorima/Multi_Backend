@@ -22,5 +22,6 @@
 	<classpathentry kind="lib" path="C:/projects/Weka-3-9-6/weka-main/jar/REngine.jar"/>
 	<classpathentry kind="lib" path="C:/projects/Weka-3-9-6/weka-main/jar/RserveEngine.jar"/>
 	<classpathentry kind="lib" path="C:/projects/Weka-3-9-6/weka.jar"/>
+	<classpathentry kind="lib" path="lib/KOMORAN-3.3.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
